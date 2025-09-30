@@ -1,0 +1,2 @@
+chrome.runtime.onInstalled.addListener(()=>{chrome.storage.local.get(["highlightColor","wsUrl"]).then(t=>{const e={};t.highlightColor||(e.highlightColor="#f9d423"),t.wsUrl||(e.wsUrl="ws://localhost:8787"),Object.keys(e).length&&chrome.storage.local.set(e).catch(()=>{})}).catch(()=>{})});chrome.runtime.onMessage.addListener((t,e,o)=>((t==null?void 0:t.type)==="PING"&&o({ok:!0}),!1));
+//# sourceMappingURL=background.js.map
