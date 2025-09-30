@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Code Review Highlight",
+  "version": "1.0.0",
+  "description": "Real-time collaborative code highlighting for GitHub pull requests",
+  
+  "permissions": [
+    "activeTab",
+    "identity",
+    "storage",
+    "scripting"
+  ],
+  
+  "host_permissions": [
+    "https://github.com/*",
+    "https://api.github.com/*"
+  ],
+  
+  "oauth2": {
+    "client_id": "YOUR_GITHUB_OAUTH_CLIENT_ID",
+    "scopes": ["user:email", "repo"]
+  },
+  
+  "background": {
+    "service_worker": "src/background/service-worker.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/pull/*"],
+      "js": ["src/content/github-injector.js"],
+      "css": ["src/content/overlay.css"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "Code Review Highlight"
+  },
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["src/content/*.js", "src/shared/*.js"],
+      "matches": ["https://github.com/*"]
+    }
+  ],
+  
+  "externally_connectable": {
+    "matches": ["https://your-partykit-server.partykit.dev/*"]
+  }
+}
