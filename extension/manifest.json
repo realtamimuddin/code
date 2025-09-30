@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "Code Review Highlights",
+  "version": "1.0.0",
+  "description": "Real-time collaborative highlighting for GitHub pull requests",
+  
+  "permissions": [
+    "storage",
+    "activeTab",
+    "identity",
+    "identity.email"
+  ],
+  
+  "host_permissions": [
+    "https://github.com/*",
+    "https://api.github.com/*",
+    "wss://your-backend-domain.com/*",
+    "https://your-backend-domain.com/*"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["https://github.com/*/pull/*"],
+      "js": ["content/index.js"],
+      "css": ["content/styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "background": {
+    "service_worker": "background/index.js"
+  },
+  
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_title": "Code Review Highlights",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  
+  "options_page": "options/index.html",
+  
+  "web_accessible_resources": [
+    {
+      "resources": ["content/*", "icons/*"],
+      "matches": ["https://github.com/*"]
+    }
+  ],
+  
+  "oauth2": {
+    "client_id": "your_github_oauth_client_id",
+    "scopes": ["user:email", "repo"]
+  }
+}
