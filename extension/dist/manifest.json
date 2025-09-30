@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub PR Highlights (Realtime)",
+  "version": "0.1.0",
+  "description": "Highlight lines collaboratively on GitHub PRs with realtime sync.",
+  "action": {
+    "default_title": "PR Highlights",
+    "default_popup": "popup/index.html"
+  },
+  "background": {
+    "service_worker": "background/serviceWorker.js",
+    "type": "module"
+  },
+  
+  "permissions": [
+    "storage",
+    "scripting",
+    "activeTab",
+    "identity"
+  ],
+  "host_permissions": [
+    "https://github.com/*",
+    "https://api.github.com/*",
+    "http://localhost:8787/*",
+    "https://localhost:8787/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://github.com/*/pull/*/files*"
+      ],
+      "js": ["content/githubOverlay.js"],
+      "css": ["content/styles.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "content/styles.css"
+      ],
+      "matches": [
+        "https://github.com/*"
+      ]
+    }
+  ],
+  "minimum_chrome_version": "109",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "pr-highlights@example.com",
+      "strict_min_version": "109.0"
+    }
+  }
+}

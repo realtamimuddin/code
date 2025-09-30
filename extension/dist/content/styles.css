@@ -1,0 +1,15 @@
+.prh-overlay {
+  z-index: 2147483646;
+}
+
+.prh-interaction {
+  z-index: 2147483647;
+}
+
+.prh-highlight {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.prh-label {
+  user-select: none;
+}

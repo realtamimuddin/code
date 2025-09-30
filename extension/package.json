@@ -1,0 +1,27 @@
+{
+  "name": "github-pr-highlights-extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:content": "esbuild src/content/githubOverlay.ts --bundle --outdir=dist/content --format=esm --target=es2022",
+    "build:background": "esbuild src/background/serviceWorker.ts --bundle --outdir=dist/background --format=esm --target=es2022",
+    "build:popup": "esbuild src/popup/index.tsx --bundle --outdir=dist/popup --format=esm --loader:.svg=file --target=es2022",
+    "copy": "mkdir -p dist && cp -r src/content/styles.css dist/content/styles.css && cp -r src/popup/index.html dist/popup/index.html && cp -r icons dist/icons || true && cp manifest.json dist/manifest.json",
+    "build": "npm run build:content && npm run build:background && npm run build:popup && npm run copy",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "y-websocket": "1.5.3",
+    "yjs": "13.6.18"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.277",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "esbuild": "0.24.0",
+    "typescript": "5.6.3"
+  }
+}
