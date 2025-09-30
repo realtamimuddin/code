@@ -1,0 +1,244 @@
+/* Content Script Styles for GitHub Overlay */
+
+/* Base overlay styles */
+#crh-overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+/* Highlight overlays */
+.crh-highlight {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 3px;
+  opacity: 0.25;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  mix-blend-mode: multiply;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.crh-highlight:hover {
+  opacity: 0.4;
+  transform: scale(1.02);
+}
+
+/* Highlight tooltip */
+.crh-highlight-tooltip {
+  position: absolute;
+  background: #1f2328;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  white-space: nowrap;
+  z-index: 10001;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 300px;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.crh-highlight-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #1f2328 transparent transparent transparent;
+}
+
+.crh-highlight:hover .crh-highlight-tooltip {
+  opacity: 1;
+  transform: translateY(-10px);
+}
+
+/* Notification styles */
+.crh-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  z-index: 10002;
+  animation: crh-slide-in 0.3s ease;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.crh-notification-info {
+  background: linear-gradient(135deg, #0969da, #1f6feb);
+  border-left: 4px solid #0550ae;
+}
+
+.crh-notification-error {
+  background: linear-gradient(135deg, #d1242f, #cf222e);
+  border-left: 4px solid #a40e26;
+}
+
+.crh-notification-success {
+  background: linear-gradient(135deg, #1a7f37, #2da44e);
+  border-left: 4px solid #116329;
+}
+
+@keyframes crh-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Line hover effect during highlight mode */
+.crh-line-hover {
+  background-color: rgba(9, 105, 218, 0.08) !important;
+  cursor: crosshair !important;
+  transition: background-color 0.15s ease;
+}
+
+.crh-line-hover:hover {
+  background-color: rgba(9, 105, 218, 0.12) !important;
+}
+
+/* Selection styles */
+.crh-selection-active {
+  user-select: text !important;
+}
+
+.crh-selection-active * {
+  user-select: text !important;
+}
+
+/* GitHub specific overrides */
+.js-file-line-container .crh-line-hover {
+  border-radius: 3px;
+}
+
+/* File header indicator for active highlighting */
+.crh-file-active::before {
+  content: '🎯';
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/* Multi-user highlight indicators */
+.crh-highlight[data-user-count]:after {
+  content: attr(data-user-count);
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #1f2328;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Highlight creation animation */
+@keyframes crh-highlight-created {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+}
+
+.crh-highlight-new {
+  animation: crh-highlight-created 0.4s ease;
+}
+
+/* Highlight deletion animation */
+@keyframes crh-highlight-deleted {
+  0% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+.crh-highlight-deleting {
+  animation: crh-highlight-deleted 0.3s ease forwards;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .crh-highlight-tooltip {
+    background: #21262d;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+  }
+  
+  .crh-highlight-tooltip::after {
+    border-color: #21262d transparent transparent transparent;
+  }
+  
+  .crh-line-hover {
+    background-color: rgba(56, 139, 253, 0.1) !important;
+  }
+  
+  .crh-line-hover:hover {
+    background-color: rgba(56, 139, 253, 0.15) !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .crh-highlight {
+    opacity: 0.6;
+    border-width: 2px;
+    border-style: solid;
+  }
+  
+  .crh-highlight:hover {
+    opacity: 0.8;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .crh-highlight,
+  .crh-highlight-tooltip,
+  .crh-notification,
+  .crh-line-hover {
+    transition: none;
+    animation: none;
+  }
+  
+  .crh-highlight-new,
+  .crh-highlight-deleting {
+    animation: none;
+  }
+}
