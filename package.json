@@ -1,0 +1,44 @@
+{
+  "name": "code-review-highlight",
+  "version": "1.0.0",
+  "description": "Real-time collaborative code highlighting for GitHub pull requests",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:partykit\" \"npm run dev:extension\"",
+    "dev:partykit": "cd server/partykit && npm run dev",
+    "dev:extension": "echo 'Load extension manually in Chrome for now'",
+    "build": "npm run build:partykit && npm run build:extension",
+    "build:partykit": "cd server/partykit && npm run build",
+    "build:extension": "cd extension && zip -r ../code-review-highlight.zip src/ manifest.json",
+    "deploy": "npm run deploy:partykit",
+    "deploy:partykit": "cd server/partykit && npm run deploy",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "npm run setup:partykit",
+    "setup:partykit": "cd server/partykit && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/code-review-highlight.git"
+  },
+  "keywords": [
+    "github",
+    "code-review",
+    "collaboration",
+    "browser-extension",
+    "real-time",
+    "partykit",
+    "supabase"
+  ],
+  "author": "Your Name <your.email@example.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/code-review-highlight/issues"
+  },
+  "homepage": "https://github.com/yourusername/code-review-highlight#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "workspaces": [
+    "server/partykit"
+  ]
+}

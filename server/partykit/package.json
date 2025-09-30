@@ -1,0 +1,18 @@
+{
+  "name": "code-review-highlight-server",
+  "version": "1.0.0",
+  "description": "PartyKit server for real-time code review highlights",
+  "main": "server.ts",
+  "scripts": {
+    "dev": "partykit dev",
+    "deploy": "partykit deploy",
+    "build": "partykit build"
+  },
+  "dependencies": {
+    "partykit": "^0.0.111"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

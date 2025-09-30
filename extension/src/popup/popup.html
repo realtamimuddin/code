@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Review Highlight</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">🎨</span>
+        <span class="logo-text">Code Review Highlight</span>
+      </div>
+    </header>
+
+    <!-- Authentication Section -->
+    <div id="auth-section" class="section hidden">
+      <div class="auth-prompt">
+        <h3>Connect to GitHub</h3>
+        <p>Authenticate with GitHub to start highlighting code collaboratively.</p>
+        <button id="auth-button" class="btn btn-primary">
+          <span class="btn-icon">🔗</span>
+          Connect GitHub Account
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Interface -->
+    <div id="main-section" class="section hidden">
+      <!-- User Info -->
+      <div class="user-info">
+        <img id="user-avatar" class="user-avatar" src="" alt="User avatar">
+        <div class="user-details">
+          <span id="user-name" class="user-name"></span>
+          <span id="user-login" class="user-login"></span>
+        </div>
+        <button id="logout-button" class="btn btn-ghost btn-sm">Logout</button>
+      </div>
+
+      <!-- PR Info -->
+      <div id="pr-info" class="pr-info hidden">
+        <div class="pr-title">
+          <span class="pr-icon">📋</span>
+          <span id="pr-title-text"></span>
+        </div>
+        <div class="pr-meta">
+          <span id="pr-repo"></span>
+          <span class="separator">•</span>
+          <span id="pr-number"></span>
+        </div>
+      </div>
+
+      <!-- Active Users -->
+      <div class="active-users">
+        <h4>Active Users</h4>
+        <div id="users-list" class="users-list">
+          <!-- Users will be populated dynamically -->
+        </div>
+      </div>
+
+      <!-- Highlight Colors -->
+      <div class="highlight-colors">
+        <h4>Highlight Color</h4>
+        <div class="color-palette">
+          <button class="color-btn active" data-color="#FF6B6B" style="background-color: #FF6B6B;"></button>
+          <button class="color-btn" data-color="#4ECDC4" style="background-color: #4ECDC4;"></button>
+          <button class="color-btn" data-color="#45B7D1" style="background-color: #45B7D1;"></button>
+          <button class="color-btn" data-color="#96CEB4" style="background-color: #96CEB4;"></button>
+          <button class="color-btn" data-color="#FFEAA7" style="background-color: #FFEAA7;"></button>
+          <button class="color-btn" data-color="#DDA0DD" style="background-color: #DDA0DD;"></button>
+          <button class="color-btn" data-color="#98D8C8" style="background-color: #98D8C8;"></button>
+        </div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-number" id="highlight-count">0</span>
+          <span class="stat-label">Highlights</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" id="user-count">0</span>
+          <span class="stat-label">Active Users</span>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button id="clear-highlights" class="btn btn-secondary">
+          <span class="btn-icon">🗑️</span>
+          Clear My Highlights
+        </button>
+        <button id="export-highlights" class="btn btn-secondary">
+          <span class="btn-icon">📤</span>
+          Export Highlights
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading-section" class="section">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+      </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-section" class="section hidden">
+      <div class="error">
+        <span class="error-icon">⚠️</span>
+        <p id="error-message">Something went wrong</p>
+        <button id="retry-button" class="btn btn-primary">Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connection Status -->
+  <div id="connection-status" class="connection-status">
+    <span id="status-indicator" class="status-indicator"></span>
+    <span id="status-text">Connecting...</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

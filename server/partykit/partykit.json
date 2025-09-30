@@ -1,0 +1,14 @@
+{
+  "name": "code-review-highlight",
+  "main": "server.ts",
+  "compatibilityDate": "2024-01-01",
+  "serve": {
+    "include": ["server.ts"]
+  },
+  "vars": {
+    "GITHUB_CLIENT_ID": "",
+    "GITHUB_CLIENT_SECRET": "",
+    "SUPABASE_URL": "",
+    "SUPABASE_ANON_KEY": ""
+  }
+}
